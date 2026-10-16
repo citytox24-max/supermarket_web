@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}New Sale{% endblock %}
+{% block content %}
+<h3>New Sale</h3>
+<form method="post">
+  <table class="table bg-white">
+    <thead><tr><th>Product</th><th>Price</th><th>In stock</th><th>Qty to sell</th></tr></thead>
+    <tbody>
+    {% for p in products %}
+      <tr>
+        <td>
+          {{ p.name }}
+          <input type="hidden" name="product_id" value="{{ p.product_id }}">
+        </td>
+        <td>{{ p.sell_price }}</td>
+        <td>{{ p.quantity }}</td>
+        <td style="width:120px">
+          <input class="form-control" type="number" name="quantity" min="0" max="{{ p.quantity }}" value="0">
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <button class="btn btn-success">Complete sale</button>
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Sales{% endblock %}
+{% block content %}
+<h3>Recent Sales</h3>
+<table class="table bg-white">
+  <thead><tr><th>#</th><th>Cashier</th><th>Total</th><th>When</th></tr></thead>
+  <tbody>
+  {% for s in sales %}
+    <tr>
+      <td>{{ s.sale_id }}</td>
+      <td>{{ s.username }}</td>
+      <td>{{ "%.2f"|format(s.total_amount) }}</td>
+      <td>{{ s.created_at }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

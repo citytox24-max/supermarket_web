@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<h3>Users</h3>
+<form method="post" class="row g-2 mb-4">
+  <div class="col-md-2"><input class="form-control" name="username" placeholder="Username" required></div>
+  <div class="col-md-2"><input class="form-control" name="password" type="password" placeholder="Password" required></div>
+  <div class="col-md-2"><input class="form-control" name="full_name" placeholder="Full name"></div>
+  <div class="col-md-2">
+    <select class="form-select" name="role">
+      <option value="cashier">cashier</option>
+      <option value="manager">manager</option>
+      <option value="admin">admin</option>
+    </select>
+  </div>
+  <div class="col-md-2"><button class="btn btn-primary w-100">Add user</button></div>
+</form>
+<table class="table bg-white">
+  <thead><tr><th>Username</th><th>Role</th><th>Full name</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for u in users %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ u.role }}</td>
+      <td>{{ u.full_name }}</td>
+      <td>{{ "Active" if u.is_active else "Disabled" }}</td>
+      <td>
+        {% if u.role != 'admin' %}
+        <form method="post" action="{{ url_for('toggle_user', user_id=u.user_id) }}" class="d-inline">
+          <button class="btn btn-sm btn-outline-secondary">Toggle</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
